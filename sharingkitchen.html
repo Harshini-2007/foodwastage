@@ -44,6 +44,8 @@
 
             const restaurantName = document.getElementById('restaurantName').value;
             const foodQuantity = document.getElementById('foodQuantity').value;
+            const contactnumber=document.getElementById('contactnumber').value;
+            const address=document.getElementById('adress').value;
             const submissionMessageDiv = document.getElementById('submissionMessage');
 
             fetch('http://127.0.0.1:5000/api/submit-food', { // Flask server address
