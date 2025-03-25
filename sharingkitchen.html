@@ -7,14 +7,14 @@
 </head>
 <body>
     <center><h1>Share Your Available Food</h1></center>
-    <form id="foodSubmissionForm">
+    <form id="foodSubmissionForm"><center>
         <div>
             <label for="restaurantName">Restaurant Name:</label>
             <input type="text" id="restaurantName" name="restaurantName" required>
         </div>
         <br>
         <div>
-            <label for="foodQuantity">Quantity of Food Left(in number of persons):</label>
+            <label for="foodQuantity">Quantity of Food Left(approx in number of persons):</label>
             <input type="number" id="foodQuantity" name="foodQuantity" min="1" required>
         </div>
         <br>
@@ -24,7 +24,9 @@
         </div>
         <br>
         <button type="submit">Submit Availability</button>
+        <center>
     </form>
+    
 
     <div id="submissionMessage" style="margin-top: 20px; display: none;"></div>
 
