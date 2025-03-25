@@ -3,10 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>sharing arena</title>
+    <title>Share Your Available Food</title>
 </head>
-<body><center> <b><h1>Reducing Food Wastage: Any leftovers?</h1></b></center>
-</body>
-    
+<body>
+    <h1>Share Your Available Food</h1>
+    <form id="foodSubmissionForm">
+        <div>
+            <label for="restaurantName">Restaurant Name:</label>
+            <input type="text" id="restaurantName" name="restaurantName" required>
+        </div>
+        <div>
+            <label for="foodQuantity">Quantity of Food Left:</label>
+            <input type="number" id="foodQuantity" name="foodQuantity" min="1" required>
+        </div>
+        <button type="submit">Submit Availability</button>
+    </form>
+
+    <div id="submissionMessage" style="margin-top: 20px; display: none;"></div>
+
+    <script>
+        document.getElementById('foodSubmissionForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const restaurantName = document.getElementById('restaurantName').value;
+            const foodQuantity = document.getElementById('foodQuantity').value;
+            const submissionMessageDiv = document.getElementById('submissionMessage');
+
+            fetch('http://127.0.0.1:5000/api/submit-food', { // Flask server address
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ restaurantName: restaurantName, foodQuantity: foodQuantity }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                submissionMessageDiv.textContent = data.message || 'Food availability submitted successfully!';
+                submissionMessageDiv.style.display = 'block';
+                document.getElementById('foodSubmissionForm').reset();
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                submissionMessageDiv.textContent = 'Failed to submit availability.';
+                submissionMessageDiv.style.display = 'block';
+            });
+        });
+    </script>
 </body>
 </html>
