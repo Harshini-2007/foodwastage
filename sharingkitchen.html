@@ -3,19 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Share Your Available Food</title>
+    <title><center><h1>Share Your Available Food</h1></center></title>
 </head>
 <body>
-    <h1>Share Your Available Food</h1>
+    <center><h1>Share Your Available Food</h1></center>
     <form id="foodSubmissionForm">
         <div>
             <label for="restaurantName">Restaurant Name:</label>
             <input type="text" id="restaurantName" name="restaurantName" required>
         </div>
+        <br>
         <div>
             <label for="foodQuantity">Quantity of Food Left:</label>
             <input type="number" id="foodQuantity" name="foodQuantity" min="1" required>
         </div>
+        <br>
+        <div>
+         <label for ="contact no."  >Contact number:</label> 
+         <input type ="tel" id="contactnumber" name="contactnumber" required>
+        </div>
+        <br>
         <button type="submit">Submit Availability</button>
     </form>
 
