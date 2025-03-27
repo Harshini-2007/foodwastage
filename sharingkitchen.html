@@ -36,38 +36,6 @@
     </form>
     
 
-    <div id="submissionMessage" style="margin-top: 20px; display: none;"></div>
-
-    <script>
-        document.getElementById('foodSubmissionForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            const restaurantName = document.getElementById('restaurantName').value;
-            const foodQuantity = document.getElementById('foodQuantity').value;
-            const contactnumber=document.getElementById('contactnumber').value;
-            const address=document.getElementById('adress').value;
-            const submissionMessageDiv = document.getElementById('submissionMessage');
-
-            fetch('http://127.0.0.1:5000/api/submit-food', { // Flask server address
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ restaurantName: restaurantName, foodQuantity: foodQuantity,contactnumber:contactnumber,address:address }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-                submissionMessageDiv.textContent = data.message || 'Food availability submitted successfully!';
-                submissionMessageDiv.style.display = 'block';
-                document.getElementById('foodSubmissionForm').reset();
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-                submissionMessageDiv.textContent = 'Failed to submit availability.';
-                submissionMessageDiv.style.display = 'block';
-            });
-        });
-    </script>
+   
 </body>
 </html>
