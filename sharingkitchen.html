@@ -44,15 +44,23 @@
             const contactnumber = document.getElementById('contactnumber').value;
             const address = document.getElementById('address').value;
 
-            const foodData = {
+            const newFoodData = {
                 restaurantName: restaurantName,
                 foodQuantity: foodQuantity,
                 contactnumber: contactnumber,
-                address: address
+                address: address,
+                timestamp: new Date().toLocaleString() // Add a timestamp
             };
 
-            // Store the data in local storage (or you could send it to a server)
-            localStorage.setItem('latestFoodData', JSON.stringify(foodData));
+            // Get existing food data from local storage
+            const storedFoodData = localStorage.getItem('allFoodData');
+            let allFoodData = storedFoodData ? JSON.parse(storedFoodData) : [];
+
+            // Add the new data to the array
+            allFoodData.push(newFoodData);
+
+            // Store the updated array back in local storage
+            localStorage.setItem('allFoodData', JSON.stringify(allFoodData));
 
             // Redirect to the home page
             window.location.href = 'index.html';
@@ -60,5 +68,3 @@
     </script>
 </body>
 </html>
-
-   
