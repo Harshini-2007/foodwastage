@@ -44,33 +44,26 @@
             const contactnumber = document.getElementById('contactnumber').value;
             const address = document.getElementById('address').value;
 
-            const foodData = {
+            const newFoodData = {
                 restaurantName: restaurantName,
                 foodQuantity: foodQuantity,
                 contactnumber: contactnumber,
-                address: address
+                address: address,
+                timestamp: new Date().toLocaleString() // Add a timestamp
             };
 
-            fetch('http://localhost:3000/api/submit-food', { // Send data to the server
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(foodData)
-            })
-            .then(response => {
-                if (response.ok) {
-                    console.log('Food data submitted successfully!');
-                    window.location.href = 'index.html'; // Redirect after successful submission
-                } else {
-                    console.error('Failed to submit food data.');
-                    alert('Failed to submit food data. Please try again.');
-                }
-            })
-            .catch(error => {
-                console.error('There was an error submitting the food data:', error);
-                alert('There was an error submitting the food data.');
-            });
+            // Get existing food data from local storage
+            const storedFoodData = localStorage.getItem('allFoodData');
+            let allFoodData = storedFoodData ? JSON.parse(storedFoodData) : [];
+
+            // Add the new data to the array
+            allFoodData.push(newFoodData);
+
+            // Store the updated array back in local storage
+            localStorage.setItem('allFoodData', JSON.stringify(allFoodData));
+
+            // Redirect to the home page
+            window.location.href = 'index.html';
         });
     </script>
 </body>
