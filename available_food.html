@@ -28,11 +28,11 @@
                     allFoodData.forEach(function(foodItem, index) {
                         html += `
                             <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; text-align: left;">
-                                <p><b>Submission #${index + 1} (${foodItem.timestamp})</b></p>
+                                <h2><p><b>Submission #${index + 1} (${foodItem.timestamp})</b></p><
                                 <p><b>Restaurant Name:</b> ${foodItem.restaurantName}</p>
                                 <p><b>Quantity Available (approx. persons):</b> ${foodItem.foodQuantity}</p>
                                 <p><b>Contact Number:</b> ${foodItem.contactnumber}</p>
-                                <p><b>Address:</b> ${foodItem.address}</p>
+                                <p><b>Address:</b> ${foodItem.address}</p></h2>
                             </div>
                         `;
                     });
