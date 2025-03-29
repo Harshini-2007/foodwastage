@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Available Food</title>
 </head>
-<body style="background-image: url('availablejpeg.jpg');background-repeat:no-repeat;background-size:cover;"></body>
+<body>
     <center>
-        <h1> Available Food</h1>
+        <h1>Currently Available Food</h1>
         <div id="foodList">
-            <p>No food availability data found yet.</p>
+            <p>Loading available food...</p>
         </div>
         <br>
         <a href="index.html">Go Back to Home</a>
@@ -18,31 +18,32 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const foodListDiv = document.getElementById('foodList');
-            const storedAllFoodData = localStorage.getItem('allFoodData');
 
-            if (storedAllFoodData) {
-                const allFoodData = JSON.parse(storedAllFoodData);
-
-                if (allFoodData.length > 0) {
-                    let html = '';
-                    allFoodData.forEach(function(foodItem, index) {
-                        html += `
-                            <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; text-align: left;">
-                                <h2><p><b>Submission #${index + 1} (${foodItem.timestamp})</b></p>
-                                <p><b>Restaurant Name:</b> ${foodItem.restaurantName}</p>
-                                <p><b>Quantity Available (approx. persons):</b> ${foodItem.foodQuantity}</p>
-                                <p><b>Contact Number:</b> ${foodItem.contactnumber}</p>
-                                <p><b>Address:</b> ${foodItem.address}</p></h2>
-                            </div>
-                        `;
-                    });
-                    foodListDiv.innerHTML = html;
-                } else {
-                    foodListDiv.innerHTML = '<p>No food availability data found yet.</p>';
-                }
-            } else {
-                foodListDiv.innerHTML = '<p>No food availability data found yet.</p>';
-            }
+            fetch('http://localhost:3000/api/available-food') // Fetch data from the server
+                .then(response => response.json()) // Parse the response as JSON
+                .then(data => {
+                    if (data && data.length > 0) {
+                        let html = '';
+                        data.forEach(function(foodItem, index) {
+                            html += `
+                                <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; text-align: left;">
+                                    <p><b>Submission #${index + 1} (${foodItem.timestamp})</b></p>
+                                    <p><b>Restaurant Name:</b> ${foodItem.restaurantName}</p>
+                                    <p><b>Quantity Available (approx. persons):</b> ${foodItem.foodQuantity}</p>
+                                    <p><b>Contact Number:</b> ${foodItem.contactnumber}</p>
+                                    <p><b>Address:</b> ${foodItem.address}</p>
+                                </div>
+                            `;
+                        });
+                        foodListDiv.innerHTML = html;
+                    } else {
+                        foodListDiv.innerHTML = '<p>No food availability data found yet.</p>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching available food:', error);
+                    foodListDiv.innerHTML = '<p>Failed to load available food.</p>';
+                });
         });
     </script>
 </body>
