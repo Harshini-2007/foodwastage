@@ -21,21 +21,44 @@
         </div>
         <br><br>
         <div>
-         <label for ="contact no."  ><b>Contact number:</b></label> 
-         <input type ="tel" id="contactnumber" name="contactnumber" max="10" required>
+           <label for ="contactnumber" ><b>Contact number:</b></label>
+           <input type ="tel" id="contactnumber" name="contactnumber" max="10" required>
         </div>
         <br><br>
         <div>
-        <label for="adress"><b>Address:</b></label>
-        <input type="text" id="adress" name="adress" required> 
+        <label for="address"><b>Address:</b></label>
+        <input type="text" id="address" name="address" required>
         </div>
         <br>
         <br>
         <button type="submit">Submit Availability</button>
         <center>
     </form>
-    
 
-   
+    <script>
+        document.getElementById('foodSubmissionForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            const restaurantName = document.getElementById('restaurantName').value;
+            const foodQuantity = document.getElementById('foodQuantity').value;
+            const contactnumber = document.getElementById('contactnumber').value;
+            const address = document.getElementById('address').value;
+
+            const foodData = {
+                restaurantName: restaurantName,
+                foodQuantity: foodQuantity,
+                contactnumber: contactnumber,
+                address: address
+            };
+
+            // Store the data in local storage (or you could send it to a server)
+            localStorage.setItem('latestFoodData', JSON.stringify(foodData));
+
+            // Redirect to the home page
+            window.location.href = 'index.html';
+        });
+    </script>
 </body>
 </html>
+
+   
